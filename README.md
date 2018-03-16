@@ -1,10 +1,11 @@
-# owl2-swrl-tutorial
-Sources for my OWL2 and SWRL tutorial at [http://dior.ics.muni.cz/~makub/owl/#java](http://dior.ics.muni.cz/~makub/owl/#java)
+# OWL API
 
-This is a [Maven](https://maven.apache.org/) project, so all needed libraries are automatically downloaded from public repositories.
+Go to Tutorial.java and run that working example.
 
-Compile and run the project from command line:
-```
-mvn compile exec:java
-```
-or open the project in your favourite IDE and run the class cz.makub.Tutorial# OWL-API
+To get ours to work:
+
+comment out the line "OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(BASE_URL));"
+
+Replace it with something like "OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new File(OUR_WORKING_OWL_FILENAME"));"
+
+From there we can manipulate the ontology how we want it
