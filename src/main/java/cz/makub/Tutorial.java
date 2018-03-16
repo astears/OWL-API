@@ -34,103 +34,103 @@ import java.util.*;
 public class Tutorial {
 
     private static final String BASE_URL = "http://acrab.ics.muni.cz/ontologies/tutorial.owl";
-    //private static final String BASE_URL = "http://numberfactsapp.s3-website-us-west-1.amazonaws.com";
 
     private static OWLObjectRenderer renderer = new DLSyntaxObjectRenderer();
 
     @SuppressWarnings("deprecation")
 	public static void main(String[] args) throws OWLOntologyCreationException {
 
-        //prepare ontology and reasoner
+        
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        //OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new File("../Untitled1.owl"));
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(BASE_URL));
+        
+        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new File("../kobeShotsV3.owl"));
+        //OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(BASE_URL));
         OWLReasonerFactory reasonerFactory = PelletReasonerFactory.getInstance();
         OWLReasoner reasoner = reasonerFactory.createReasoner(ontology, new SimpleConfiguration());
         OWLDataFactory factory = manager.getOWLDataFactory();
-        PrefixDocumentFormat pm = manager.getOntologyFormat(ontology).asPrefixOWLOntologyFormat();
-        pm.setDefaultPrefix(BASE_URL + "#");
-
-        //get class and its individuals
-        OWLClass personClass = factory.getOWLClass(":Person", pm);
+       PrefixDocumentFormat pm = manager.getOntologyFormat(ontology).asPrefixOWLOntologyFormat();
+       //pm.setDefaultPrefix("../kobeShotsV3.owl" + "#");
+//
+//        //get class and its individuals
+        OWLClass personClass = factory.getOWLClass(":Shooter", pm);
 
         for (OWLNamedIndividual person : reasoner.getInstances(personClass, false).getFlattened()) {
             System.out.println("person : " + renderer.render(person));
         }
-
-        //get a given individual
-        OWLNamedIndividual martin = factory.getOWLNamedIndividual(":Martin", pm);
-
-        //get values of selected properties on the individual
-        OWLDataProperty hasEmailProperty = factory.getOWLDataProperty(":hasEmail", pm);
-
-        OWLObjectProperty isEmployedAtProperty = factory.getOWLObjectProperty(":isEmployedAt", pm);
-
-        for (OWLLiteral email : reasoner.getDataPropertyValues(martin, hasEmailProperty)) {
-            System.out.println("Martin has email: " + email.getLiteral());
-        }
-
-        for (OWLNamedIndividual ind : reasoner.getObjectPropertyValues(martin, isEmployedAtProperty).getFlattened()) {
-            System.out.println("Martin is employed at: " + renderer.render(ind));
-        }
-
-        //get labels
-        LocalizedAnnotationSelector as = new LocalizedAnnotationSelector(ontology, factory, "en", "cs");
-        for (OWLNamedIndividual ind : reasoner.getObjectPropertyValues(martin, isEmployedAtProperty).getFlattened()) {
-            System.out.println("Martin is employed at: '" + as.getLabel(ind) + "'");
-        }
-
-        //get inverse of a property, i.e. which individuals are in relation with a given individual
-        OWLNamedIndividual university = factory.getOWLNamedIndividual(":MU", pm);
-        OWLObjectPropertyExpression inverse = factory.getOWLObjectInverseOf(isEmployedAtProperty);
-        for (OWLNamedIndividual ind : reasoner.getObjectPropertyValues(university, inverse).getFlattened()) {
-            System.out.println("MU inverseOf(isEmployedAt) -> " + renderer.render(ind));
-        }
-
-        //find to which classes the individual belongs
-        Collection<OWLClassExpression> assertedClasses = EntitySearcher.getTypes(martin, ontology);
-        for (OWLClass c : reasoner.getTypes(martin, false).getFlattened()) {
-            boolean asserted = assertedClasses.contains(c);
-            System.out.println((asserted ? "asserted" : "inferred") + " class for Martin: " + renderer.render(c));
-        }
-
-        //list all object property values for the individual
-        Multimap<OWLObjectPropertyExpression, OWLIndividual> assertedValues = EntitySearcher.getObjectPropertyValues(martin, ontology);
-        for (OWLObjectProperty objProp : ontology.getObjectPropertiesInSignature(Imports.INCLUDED)) {
-            for (OWLNamedIndividual ind : reasoner.getObjectPropertyValues(martin, objProp).getFlattened()) {
-                boolean asserted = assertedValues.get(objProp).contains(ind);
-                System.out.println((asserted ? "asserted" : "inferred") + " object property for Martin: "
-                        + renderer.render(objProp) + " -> " + renderer.render(ind));
-            }
-        }
-
-        //list all same individuals
-        for (OWLNamedIndividual ind : reasoner.getSameIndividuals(martin)) {
-            System.out.println("same as Martin: " + renderer.render(ind));
-        }
-
-        //ask reasoner whether Martin is employed at MU
-        boolean result = reasoner.isEntailed(factory.getOWLObjectPropertyAssertionAxiom(isEmployedAtProperty, martin, university));
-        System.out.println("Is Martin employed at MU ? : " + result);
-
-
-        //check whether the SWRL rule is used
-        OWLNamedIndividual ivan = factory.getOWLNamedIndividual(":Ivan", pm);
-        OWLClass chOMPClass = factory.getOWLClass(":ChildOfMarriedParents", pm);
-        OWLClassAssertionAxiom axiomToExplain = factory.getOWLClassAssertionAxiom(chOMPClass, ivan);
-        System.out.println("Is Ivan child of married parents ? : " + reasoner.isEntailed(axiomToExplain));
-
-
-        //explain why Ivan is child of married parents
-        DefaultExplanationGenerator explanationGenerator =
-                new DefaultExplanationGenerator(
-                        manager, reasonerFactory, ontology, reasoner, new SilentExplanationProgressMonitor());
-        Set<OWLAxiom> explanation = explanationGenerator.getExplanation(axiomToExplain);
-        ExplanationOrderer deo = new ExplanationOrdererImpl(manager);
-        ExplanationTree explanationTree = deo.getOrderedExplanation(axiomToExplain, explanation);
-        System.out.println();
-        System.out.println("-- explanation why Ivan is in class ChildOfMarriedParents --");
-        printIndented(explanationTree, "");
+//
+//        //get a given individual
+//        OWLNamedIndividual martin = factory.getOWLNamedIndividual(":Martin", pm);
+//
+//        //get values of selected properties on the individual
+//        OWLDataProperty hasEmailProperty = factory.getOWLDataProperty(":hasEmail", pm);
+//
+//        OWLObjectProperty isEmployedAtProperty = factory.getOWLObjectProperty(":isEmployedAt", pm);
+//
+//        for (OWLLiteral email : reasoner.getDataPropertyValues(martin, hasEmailProperty)) {
+//            System.out.println("Martin has email: " + email.getLiteral());
+//        }
+//
+//        for (OWLNamedIndividual ind : reasoner.getObjectPropertyValues(martin, isEmployedAtProperty).getFlattened()) {
+//            System.out.println("Martin is employed at: " + renderer.render(ind));
+//        }
+//
+//        //get labels
+//        LocalizedAnnotationSelector as = new LocalizedAnnotationSelector(ontology, factory, "en", "cs");
+//        for (OWLNamedIndividual ind : reasoner.getObjectPropertyValues(martin, isEmployedAtProperty).getFlattened()) {
+//            System.out.println("Martin is employed at: '" + as.getLabel(ind) + "'");
+//        }
+//
+//        //get inverse of a property, i.e. which individuals are in relation with a given individual
+//        OWLNamedIndividual university = factory.getOWLNamedIndividual(":MU", pm);
+//        OWLObjectPropertyExpression inverse = factory.getOWLObjectInverseOf(isEmployedAtProperty);
+//        for (OWLNamedIndividual ind : reasoner.getObjectPropertyValues(university, inverse).getFlattened()) {
+//            System.out.println("MU inverseOf(isEmployedAt) -> " + renderer.render(ind));
+//        }
+//
+//        //find to which classes the individual belongs
+//        Collection<OWLClassExpression> assertedClasses = EntitySearcher.getTypes(martin, ontology);
+//        for (OWLClass c : reasoner.getTypes(martin, false).getFlattened()) {
+//            boolean asserted = assertedClasses.contains(c);
+//            System.out.println((asserted ? "asserted" : "inferred") + " class for Martin: " + renderer.render(c));
+//        }
+//
+//        //list all object property values for the individual
+//        Multimap<OWLObjectPropertyExpression, OWLIndividual> assertedValues = EntitySearcher.getObjectPropertyValues(martin, ontology);
+//        for (OWLObjectProperty objProp : ontology.getObjectPropertiesInSignature(Imports.INCLUDED)) {
+//            for (OWLNamedIndividual ind : reasoner.getObjectPropertyValues(martin, objProp).getFlattened()) {
+//                boolean asserted = assertedValues.get(objProp).contains(ind);
+//                System.out.println((asserted ? "asserted" : "inferred") + " object property for Martin: "
+//                        + renderer.render(objProp) + " -> " + renderer.render(ind));
+//            }
+//        }
+//
+//        //list all same individuals
+//        for (OWLNamedIndividual ind : reasoner.getSameIndividuals(martin)) {
+//            System.out.println("same as Martin: " + renderer.render(ind));
+//        }
+//
+//        //ask reasoner whether Martin is employed at MU
+//        boolean result = reasoner.isEntailed(factory.getOWLObjectPropertyAssertionAxiom(isEmployedAtProperty, martin, university));
+//        System.out.println("Is Martin employed at MU ? : " + result);
+//
+//
+//        //check whether the SWRL rule is used
+//        OWLNamedIndividual ivan = factory.getOWLNamedIndividual(":Ivan", pm);
+//        OWLClass chOMPClass = factory.getOWLClass(":ChildOfMarriedParents", pm);
+//        OWLClassAssertionAxiom axiomToExplain = factory.getOWLClassAssertionAxiom(chOMPClass, ivan);
+//        System.out.println("Is Ivan child of married parents ? : " + reasoner.isEntailed(axiomToExplain));
+//
+//
+//        //explain why Ivan is child of married parents
+//        DefaultExplanationGenerator explanationGenerator =
+//                new DefaultExplanationGenerator(
+//                        manager, reasonerFactory, ontology, reasoner, new SilentExplanationProgressMonitor());
+//        Set<OWLAxiom> explanation = explanationGenerator.getExplanation(axiomToExplain);
+//        ExplanationOrderer deo = new ExplanationOrdererImpl(manager);
+//        ExplanationTree explanationTree = deo.getOrderedExplanation(axiomToExplain, explanation);
+//        System.out.println();
+//        System.out.println("-- explanation why Ivan is in class ChildOfMarriedParents --");
+//        printIndented(explanationTree, "");
     }
 
     private static void printIndented(Tree<OWLAxiom> node, String indent) {

@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#"
+     xml:base="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#atAge -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#atAge"/>
+    
+
+
+    <!-- http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#hasHealth -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#hasHealth"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Player:_clutch_factor -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Player:_clutch_factor"/>
+    
+
+
+    <!-- http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Player:_first_name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Player:_first_name"/>
+    
+
+
+    <!-- http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Player:_last_name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Player:_last_name">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Opponent -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Opponent">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Player"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Player -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Player"/>
+    
+
+
+    <!-- http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Shooter -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Shooter">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Player"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Damian -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Damian">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Opponent"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Kobe -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Kobe">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Shooter"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Russell -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Russell">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Opponent"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Shaq -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Shaq">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jkwanpc/ontologies/2018/2/untitled-ontology-4#Shooter"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+
